@@ -71,8 +71,8 @@
     </nav>
 
     <div class="sidebar-footer">
-      <p>Demo v1.0 — Prototype</p>
-      <p>© 2025 HRMIS Project</p>
+      <p>v2.0 — Pre-Final Submission</p>
+      <p>© 2026 HRMIS Project</p>
     </div>
   </aside>
 
@@ -184,8 +184,11 @@
           <h3>Employee Directory</h3>
           <button class="btn-primary" id="addEmpBtn" onclick="openAddModal()">+ Add Employee</button>
         </div>
-        <div class="search-bar">
+        <div class="search-bar emp-filter-bar">
           <input type="text" id="searchInput" placeholder="Search by name, department or designation…" oninput="renderEmployees()" />
+          <select id="deptFilter" onchange="renderEmployees()">
+            <option value="All">All Departments</option>
+          </select>
         </div>
         <div class="table-wrap">
           <table class="data-table">
@@ -236,7 +239,10 @@
       <div class="card">
         <div class="card-header">
           <h3>Payroll Processing</h3>
-          <span class="badge-pill">Auto-Calculated</span>
+          <div style="display:flex;gap:10px;align-items:center">
+            <span class="badge-pill">Auto-Calculated</span>
+            <button class="btn-outline" onclick="printPayroll()">🖨 Print Report</button>
+          </div>
         </div>
         <div class="table-wrap">
           <table class="data-table">
@@ -310,7 +316,7 @@
             </div>
             <div class="hero-meta-item">
               <span class="hero-meta-label">Academic Year</span>
-              <span class="hero-meta-value">2024 – 2025</span>
+              <span class="hero-meta-value">2025 – 2026</span>
             </div>
           </div>
         </div>
@@ -755,6 +761,63 @@
       <div class="modal-footer">
         <button class="btn-outline" onclick="closeModal()">Cancel</button>
         <button class="btn-primary" onclick="addEmployee()">Add Employee</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EDIT EMPLOYEE MODAL ═══════════════════════════════ -->
+  <div class="modal-overlay" id="editModalOverlay" onclick="closeEditModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Edit Employee</h3>
+        <button class="modal-close" onclick="closeEditModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editEmpId" />
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="efName" placeholder="e.g. Ravi Sharma" />
+          </div>
+          <div class="form-group">
+            <label>Department *</label>
+            <select id="efDept">
+              <option>IT</option>
+              <option>HR</option>
+              <option>Finance</option>
+              <option>Marketing</option>
+              <option>Operations</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Designation</label>
+            <input type="text" id="efDesig" placeholder="e.g. Software Engineer" />
+          </div>
+          <div class="form-group">
+            <label>Base Salary (₹) *</label>
+            <input type="number" id="efSalary" placeholder="e.g. 45000" />
+          </div>
+          <div class="form-group">
+            <label>Contact Number</label>
+            <input type="text" id="efContact" placeholder="e.g. 9876543210" />
+          </div>
+          <div class="form-group">
+            <label>Days Present (this month)</label>
+            <input type="number" id="efPresent" placeholder="e.g. 22" min="0" max="31" />
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="efStatus">
+              <option value="Active">Active</option>
+              <option value="On Leave">On Leave</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeEditModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveEditEmployee()">Save Changes</button>
       </div>
     </div>
   </div>

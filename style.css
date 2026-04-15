@@ -1262,7 +1262,59 @@ body {
   padding-top: 1px;
 }
 
+/* ── EDIT BUTTON ─────────────────────────────────────────── */
+.btn-edit {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  padding: 5px 11px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.18s;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  margin-right: 5px;
+}
+.btn-edit:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+/* ── EMPLOYEE FILTER BAR ─────────────────────────────────── */
+.emp-filter-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.emp-filter-bar input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.emp-filter-bar select {
+  background: #fafafa;
+  border: 1px solid var(--border-card);
+  color: var(--card-text);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: border 0.18s, box-shadow 0.18s;
+  min-width: 160px;
+}
+
+.emp-filter-bar select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(226,129,177,0.12);
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+
 @media (max-width: 900px) {
   .sidebar { transform: translateX(-100%); }
   .main-wrapper { margin-left: 0; }
@@ -1270,9 +1322,23 @@ body {
   .charts-row, .compare-grid, .tools-grid,
   .objectives-grid, .modules-grid, .outcome-grid,
   .reports-grid, .team-grid { grid-template-columns: 1fr; }
+  .report-card.wide { grid-column: span 1; }
   .report-hero h1 { font-size: 24px; }
   .arch-flow { flex-direction: column; }
   .arch-arrow { transform: rotate(90deg); }
   .tab-content { padding: 18px 16px; }
   .topbar { padding: 14px 16px; }
+  .topbar-date { display: none; }
+  .hero-meta { gap: 16px; }
+}
+
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .emp-filter-bar { flex-direction: column; }
+  .emp-filter-bar input,
+  .emp-filter-bar select { width: 100%; min-width: unset; }
+  .page-title { font-size: 16px; }
+  .topbar-badge { display: none; }
+  .data-table th, .data-table td { padding: 9px 10px; font-size: 12px; }
 }
