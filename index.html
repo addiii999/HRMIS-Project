@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HRMIS — Human Resource Management Information System | BCA 6th Sem</title>
+  <meta name="description" content="Human Resource Management Information System — BCA 6th Semester MIS Project. Manage employees, track attendance, automate payroll, generate reports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">HR</div>
+      <div>
+        <p class="brand-title">HRMIS</p>
+        <p class="brand-sub">BCA 6th Semester</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Prototype</div>
+
+      <a class="nav-link active" id="nav-dashboard" data-tab="dashboard" onclick="switchTab('dashboard')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </span>
+        Dashboard
+      </a>
+
+      <a class="nav-link" id="nav-employees" data-tab="employees" onclick="switchTab('employees')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        Employees
+      </a>
+
+      <a class="nav-link" id="nav-attendance" data-tab="attendance" onclick="switchTab('attendance')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l2 2 4-4"/></svg>
+        </span>
+        Attendance
+      </a>
+
+      <a class="nav-link" id="nav-payroll" data-tab="payroll" onclick="switchTab('payroll')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </span>
+        Payroll
+      </a>
+
+      <a class="nav-link" id="nav-reports" data-tab="reports" onclick="switchTab('reports')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>
+        Reports
+      </a>
+
+      <div class="nav-divider"></div>
+      <div class="sidebar-section-label">MIS Project</div>
+
+      <a class="nav-link" id="nav-projectreport" data-tab="projectreport" onclick="switchTab('projectreport')">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </span>
+        Project Report
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p>Demo v1.0 — Prototype</p>
+      <p>© 2025 HRMIS Project</p>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN CONTENT ══════════════════════════════════════ -->
+  <div class="main-wrapper">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        <p class="page-sub" id="pageSub">Overview of your HR data</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-badge">
+          <span class="badge-dot"></span>
+          Admin User
+        </div>
+        <div class="topbar-date" id="currentDate"></div>
+      </div>
+    </header>
+
+    <!-- ══════════ TAB: DASHBOARD ══════════════════════════ -->
+    <section class="tab-content active" id="tab-dashboard">
+
+      <!-- KPI CARDS -->
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-cyan">
+          <div class="kpi-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f5ff" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Total Employees</p>
+            <p class="kpi-value" id="kpi-total">0</p>
+            <p class="kpi-change">Active workforce</p>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22d3a5" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Net Monthly Salary</p>
+            <p class="kpi-value" id="kpi-salary">₹0</p>
+            <p class="kpi-change" style="color:var(--text-muted)">After PF & Tax</p>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Avg Attendance</p>
+            <p class="kpi-value" id="kpi-attendance">0%</p>
+            <p class="kpi-change" style="color:var(--text-muted)">This month</p>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-orange">
+          <div class="kpi-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="kpi-body">
+            <p class="kpi-label">Active Departments</p>
+            <p class="kpi-value" id="kpi-depts">0</p>
+            <p class="kpi-change" style="color:var(--text-muted)">Functional units</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3 class="chart-title">Department Distribution</h3>
+          <div class="dept-chart" id="deptChart"></div>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">Top Attendance</h3>
+          <div class="att-bars" id="attBars"></div>
+        </div>
+      </div>
+
+      <!-- RECENT TABLE -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Recent Employees</h3>
+          <button class="btn-outline" id="viewAllBtn" onclick="switchTab('employees')">View All</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="dashRecentTable">
+            <thead>
+              <tr>
+                <th>EMP ID</th><th>Name</th><th>Department</th><th>Net Pay</th><th>Attendance</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="dashRecentBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════ TAB: EMPLOYEES ══════════════════════════ -->
+    <section class="tab-content" id="tab-employees">
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Employee Directory</h3>
+          <button class="btn-primary" id="addEmpBtn" onclick="openAddModal()">+ Add Employee</button>
+        </div>
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search by name, department or designation…" oninput="renderEmployees()" />
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>EMP ID</th><th>Name</th><th>Department</th><th>Designation</th>
+                <th>Base Salary</th><th>Contact</th><th>Status</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="empTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════ TAB: ATTENDANCE ══════════════════════════ -->
+    <section class="tab-content" id="tab-attendance">
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Attendance Tracker</h3>
+          <div class="header-controls">
+            <label>Working Days:
+              <input type="number" id="workingDays" value="26" min="1" max="31" onchange="recalcAll()" />
+            </label>
+            <button class="btn-primary" id="recalcBtn" onclick="recalcAll()">Recalculate</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>EMP ID</th><th>Name</th><th>Department</th>
+                <th>Days Present</th><th>Attendance %</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="attTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════ TAB: PAYROLL ══════════════════════════════ -->
+    <section class="tab-content" id="tab-payroll">
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Payroll Processing</h3>
+          <span class="badge-pill">Auto-Calculated</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>EMP ID</th><th>Name</th><th>Base Salary</th><th>Days Present</th>
+                <th>Gross Pay</th><th>PF (12%)</th><th>Tax (10%)</th><th>Net Pay</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="payTableBody"></tbody>
+          </table>
+        </div>
+        <div class="payroll-summary" id="payrollSummary"></div>
+      </div>
+
+    </section>
+
+    <!-- ══════════ TAB: REPORTS ══════════════════════════════ -->
+    <section class="tab-content" id="tab-reports">
+
+      <div class="reports-grid">
+
+        <div class="report-card">
+          <div class="report-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f5ff" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h4>Payroll Summary Report</h4>
+          <p>Total payroll expenditure breakdown by department, showing gross and net amounts.</p>
+          <div id="reportPayrollTable"></div>
+        </div>
+
+        <div class="report-card">
+          <div class="report-icon-wrap" style="background:var(--purple-dim)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><path d="M8 14l2 2 4-4"/></svg>
+          </div>
+          <h4>Attendance Summary Report</h4>
+          <p>Monthly attendance statistics for all departments with performance rating.</p>
+          <div id="reportAttTable"></div>
+        </div>
+
+        <div class="report-card wide">
+          <div class="report-icon-wrap" style="background:var(--green-dim)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22d3a5" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <h4>Headcount by Department</h4>
+          <p>Visual representation of department-wise employee distribution.</p>
+          <div class="dept-bars" id="deptBarsReport"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ══════════ TAB: PROJECT REPORT ══════════════════════ -->
+    <section class="tab-content" id="tab-projectreport">
+      <div class="report-page">
+
+        <!-- HERO -->
+        <div class="report-hero">
+          <p class="institution">BCA — Bachelor of Computer Applications · 6th Semester · Session 2024–25</p>
+          <h1>Human Resource Management<br>Information System</h1>
+          <p class="subtitle">A comprehensive MIS-based solution for automating and streamlining<br>employee management, attendance tracking, and payroll processing.</p>
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Subject</span>
+              <span class="hero-meta-value">Management Information Systems</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Project Type</span>
+              <span class="hero-meta-value">Web-Based Prototype</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Academic Year</span>
+              <span class="hero-meta-value">2024 – 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. PROJECT TITLE & TEAM -->
+        <div class="report-section">
+          <p class="section-number">Section 01</p>
+          <h2>Project Title &amp; Team</h2>
+          <p><strong>Project Title:</strong> Human Resource Management Information System (HRMIS)</p>
+          <p style="margin-top:6px"><strong>Submitted To:</strong> Department of Computer Science &amp; Applications</p>
+          <div class="team-grid" style="margin-top:20px">
+            <div class="team-card">
+              <div class="team-avatar">AS</div>
+              <p class="team-name">Aditya Sharma</p>
+              <p class="team-role">Team Lead &amp; Developer</p>
+              <p class="team-roll">Roll No. BCA/06/001</p>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar" style="background:var(--grad-purple)">PR</div>
+              <p class="team-name">Priya Rawat</p>
+              <p class="team-role">System Analyst</p>
+              <p class="team-roll">Roll No. BCA/06/002</p>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar" style="background:var(--grad-green)">RK</div>
+              <p class="team-name">Rohit Kumar</p>
+              <p class="team-role">UI Designer &amp; Tester</p>
+              <p class="team-roll">Roll No. BCA/06/003</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. PROBLEM STATEMENT -->
+        <div class="report-section">
+          <p class="section-number">Section 02</p>
+          <h2>Problem Statement</h2>
+          <p>
+            Most small and medium-sized organizations in India still rely on <strong>manual, paper-based processes</strong>
+            for managing human resources. This leads to frequent errors in attendance records, delayed salary
+            calculations, and a complete lack of analytical reporting.
+          </p>
+          <p>
+            HR departments spend excessive time on repetitive tasks — maintaining attendance registers, calculating
+            payroll manually each month, and preparing department reports by hand. This wastes valuable time and
+            introduces human error into critical business processes.
+          </p>
+          <p>
+            There is a clear need for an <strong>affordable, easy-to-use, web-based HRMIS</strong> that automates
+            these tasks, maintains accurate records, and provides instant reports and analytics — accessible
+            from any device without complex software installation.
+          </p>
+        </div>
+
+        <!-- 3. OBJECTIVES -->
+        <div class="report-section">
+          <p class="section-number">Section 03</p>
+          <h2>Objectives</h2>
+          <div class="objectives-grid">
+            <div class="obj-card"><span class="obj-number">01</span>Maintain a centralized, digital database of all employee records with easy add/remove operations.</div>
+            <div class="obj-card"><span class="obj-number">02</span>Automate monthly attendance tracking — recording days present and calculating attendance percentage.</div>
+            <div class="obj-card"><span class="obj-number">03</span>Automatically compute payroll including gross pay, PF deductions, tax, and final net pay.</div>
+            <div class="obj-card"><span class="obj-number">04</span>Generate department-wise analytical reports for management decision-making.</div>
+            <div class="obj-card"><span class="obj-number">05</span>Provide a real-time dashboard with KPIs: total employees, total salary, and average attendance.</div>
+            <div class="obj-card"><span class="obj-number">06</span>Deliver a clean, intuitive web-based interface that requires no special training to use.</div>
+          </div>
+        </div>
+
+        <!-- 4. EXISTING SYSTEM -->
+        <!-- 5. PROPOSED SYSTEM -->
+        <div class="report-section">
+          <p class="section-number">Section 04 &amp; 05</p>
+          <h2>Existing vs. Proposed System</h2>
+          <div class="compare-grid">
+            <div class="compare-card existing">
+              <h4>Existing (Manual) System</h4>
+              <ul>
+                <li>Attendance recorded in physical registers</li>
+                <li>Payroll calculated manually by HR staff</li>
+                <li>No real-time data — reports prepared weekly</li>
+                <li>High risk of human error in salary computation</li>
+                <li>Employee records stored in physical files</li>
+                <li>No analytics or trend visualization available</li>
+                <li>Time-consuming and resource-intensive process</li>
+              </ul>
+            </div>
+            <div class="compare-card proposed">
+              <h4>Proposed (HRMIS) System</h4>
+              <ul>
+                <li>Digital attendance input with instant percentage calculation</li>
+                <li>Automated payroll with PF and tax deductions</li>
+                <li>Real-time dashboard with live KPI stats</li>
+                <li>100% accurate, formula-driven salary processing</li>
+                <li>Centralized employee directory with search function</li>
+                <li>Visual bar charts and department reports</li>
+                <li>Web-based — accessible from any browser, anytime</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. TOOLS & TECHNOLOGIES -->
+        <div class="report-section">
+          <p class="section-number">Section 06</p>
+          <h2>Tools &amp; Technologies</h2>
+          <div class="tools-grid">
+            <div class="tool-card">
+              <div class="tool-icon">🌐</div>
+              <p class="tool-name">HTML5</p>
+              <p class="tool-role">Structure &amp; Markup</p>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">🎨</div>
+              <p class="tool-name">CSS3</p>
+              <p class="tool-role">Styling &amp; Animations</p>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">⚡</div>
+              <p class="tool-name">JavaScript</p>
+              <p class="tool-role">Logic &amp; Interactivity</p>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">🔤</div>
+              <p class="tool-name">Google Fonts</p>
+              <p class="tool-role">Poppins &amp; Inter</p>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">📝</div>
+              <p class="tool-name">VS Code</p>
+              <p class="tool-role">Code Editor</p>
+            </div>
+            <div class="tool-card">
+              <div class="tool-icon">🌍</div>
+              <p class="tool-name">Web Browser</p>
+              <p class="tool-role">Runtime Environment</p>
+            </div>
+          </div>
+          <p style="margin-top:16px">
+            This project uses <strong>pure client-side technologies</strong> — no server or database installation required.
+            All data is managed in memory via JavaScript, making it ideal for a prototype demonstration.
+            A production version would integrate a backend (Node.js / PHP) with a MySQL database.
+          </p>
+        </div>
+
+        <!-- 7. SYSTEM ARCHITECTURE -->
+        <div class="report-section">
+          <p class="section-number">Section 07</p>
+          <h2>System Architecture</h2>
+          <p>The HRMIS follows a straightforward <strong>3-layer architecture</strong> for presentation, processing, and data management:</p>
+          <div class="arch-flow">
+            <div class="arch-node">
+              <div class="arch-node-icon">👤</div>
+              <div class="arch-node-label">User</div>
+              <div class="arch-node-sub">HR Admin / Manager</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">🖥️</div>
+              <div class="arch-node-label">Interface</div>
+              <div class="arch-node-sub">HTML + CSS Dashboard</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">⚙️</div>
+              <div class="arch-node-label">Processing</div>
+              <div class="arch-node-sub">JavaScript Logic</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">🗄️</div>
+              <div class="arch-node-label">Data</div>
+              <div class="arch-node-sub">Employee Records Array</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">📊</div>
+              <div class="arch-node-label">Output</div>
+              <div class="arch-node-sub">Reports &amp; Analytics</div>
+            </div>
+          </div>
+
+          <p style="margin-top:20px"><strong>Data Flow:</strong></p>
+          <ol>
+            <li>HR Admin interacts with the web-based interface (Dashboard, Employees, Attendance, Payroll tabs).</li>
+            <li>Input actions (add employee, update attendance) are processed by JavaScript functions.</li>
+            <li>The data layer (in-memory JS array) is updated and all related views are re-rendered.</li>
+            <li>The Output layer displays calculated payroll, attendance stats, and visual charts in real time.</li>
+          </ol>
+        </div>
+
+        <!-- 8. MODULES -->
+        <div class="report-section">
+          <p class="section-number">Section 08</p>
+          <h2>System Modules</h2>
+          <div class="modules-grid">
+            <div class="module-card">
+              <div class="module-header">
+                <div class="module-icon cyan">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#00f5ff" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <p class="module-name">Employee Module</p>
+              </div>
+              <ul>
+                <li>Add and remove employee records</li>
+                <li>Store: ID, Name, Department, Designation</li>
+                <li>Store: Base Salary, Contact, Status</li>
+                <li>Search &amp; filter by name or department</li>
+                <li>Auto-generated EMP IDs (EMP001, EMP002…)</li>
+              </ul>
+            </div>
+
+            <div class="module-card">
+              <div class="module-header">
+                <div class="module-icon purple">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 14l2 2 4-4"/></svg>
+                </div>
+                <p class="module-name">Attendance Module</p>
+              </div>
+              <ul>
+                <li>Input days present per employee</li>
+                <li>Configurable working days per month</li>
+                <li>Auto-calculate attendance percentage</li>
+                <li>Status badge: Excellent / Average / Poor</li>
+                <li>Real-time recalculation across all modules</li>
+              </ul>
+            </div>
+
+            <div class="module-card">
+              <div class="module-header">
+                <div class="module-icon green">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#22d3a5" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <p class="module-name">Payroll Module</p>
+              </div>
+              <ul>
+                <li>Gross Pay = (Base ÷ Working Days) × Present</li>
+                <li>PF Deduction = 12% of Gross Pay</li>
+                <li>Income Tax = 10% of Gross Pay</li>
+                <li>Net Pay = Gross − PF − Tax</li>
+                <li>Summary: Total Gross, PF, Tax, Net Payable</li>
+              </ul>
+            </div>
+
+            <div class="module-card">
+              <div class="module-header">
+                <div class="module-icon orange">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <p class="module-name">Reports Module</p>
+              </div>
+              <ul>
+                <li>Payroll report — department-wise cost analysis</li>
+                <li>Attendance report — dept-wise average attendance</li>
+                <li>Headcount chart — visual bar graph per department</li>
+                <li>Dashboard KPIs updated in real-time</li>
+                <li>Supports management decision-making</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. WORK COMPLETED -->
+        <div class="report-section">
+          <p class="section-number">Section 09</p>
+          <h2>Work Completed</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot done"></div>
+              <div class="timeline-content">
+                <p class="timeline-label">Phase 1 — Planning &amp; Requirement Analysis</p>
+                <p class="timeline-desc">Identified the problem domain, defined scope, gathered functional requirements, and planned the module structure of the HRMIS.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"></div>
+              <div class="timeline-content">
+                <p class="timeline-label">Phase 2 — UI Design &amp; Prototype Layout</p>
+                <p class="timeline-desc">Designed the dark-neon glassmorphism interface with sidebar navigation, tab-based layout, and card components for a premium user experience.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"></div>
+              <div class="timeline-content">
+                <p class="timeline-label">Phase 3 — Core Module Development</p>
+                <p class="timeline-desc">Built and tested all four modules: Employee Directory, Attendance Tracker, Payroll Processing, and Reports with live data rendering.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"></div>
+              <div class="timeline-content">
+                <p class="timeline-label">Phase 4 — Dashboard &amp; Analytics</p>
+                <p class="timeline-desc">Implemented real-time KPI cards, department bar charts, top-attendance visual bars, and a recent employees summary table.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot active"></div>
+              <div class="timeline-content">
+                <p class="timeline-label">Phase 5 — Testing &amp; Project Report (In Progress)</p>
+                <p class="timeline-desc">Final testing across all browsers, validation of payroll formulas, and completion of this MIS project report for submission.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. EXPECTED OUTCOME -->
+        <div class="report-section">
+          <p class="section-number">Section 10</p>
+          <h2>Expected Outcome</h2>
+          <div class="outcome-grid">
+            <div class="outcome-pill">
+              <div class="outcome-icon">✓</div>
+              Fully automated payroll with zero manual calculation errors
+            </div>
+            <div class="outcome-pill">
+              <div class="outcome-icon">✓</div>
+              Instant, real-time attendance tracking for all employees
+            </div>
+            <div class="outcome-pill">
+              <div class="outcome-icon">✓</div>
+              Centralized employee records accessible in one click
+            </div>
+            <div class="outcome-pill">
+              <div class="outcome-icon">✓</div>
+              Department-wise reports enabling informed management decisions
+            </div>
+            <div class="outcome-pill">
+              <div class="outcome-icon">✓</div>
+              Significant reduction in HR department workload and manual effort
+            </div>
+            <div class="outcome-pill">
+              <div class="outcome-icon">✓</div>
+              Scalable, clean UI that demonstrates core MIS principles clearly
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. FUTURE SCOPE -->
+        <div class="report-section">
+          <p class="section-number">Section 11</p>
+          <h2>Future Scope</h2>
+          <div class="outcome-grid">
+            <div class="future-pill">
+              <div class="future-icon">→</div>
+              Backend integration with MySQL database and server-side processing
+            </div>
+            <div class="future-pill">
+              <div class="future-icon">→</div>
+              Biometric attendance integration using fingerprint or face recognition
+            </div>
+            <div class="future-pill">
+              <div class="future-icon">→</div>
+              Role-based login — separate portals for Admin, HR, and Employee
+            </div>
+            <div class="future-pill">
+              <div class="future-icon">→</div>
+              Automated payslip generation and email delivery to employees
+            </div>
+            <div class="future-pill">
+              <div class="future-icon">→</div>
+              Leave management system with approval workflow
+            </div>
+            <div class="future-pill">
+              <div class="future-icon">→</div>
+              Mobile app version for iOS and Android platforms
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. REFERENCES -->
+        <div class="report-section">
+          <p class="section-number">Section 12</p>
+          <h2>References</h2>
+          <div class="ref-list">
+            <div class="ref-item">
+              <span class="ref-num">[1]</span>
+              <span>Laudon, K.C. &amp; Laudon, J.P. (2022). <strong>Management Information Systems: Managing the Digital Firm</strong> (16th ed.). Pearson Education. — Primary reference for MIS concepts and system design methodology.</span>
+            </div>
+            <div class="ref-item">
+              <span class="ref-num">[2]</span>
+              <span>Dessler, G. (2020). <strong>Human Resource Management</strong> (16th ed.). Pearson. — Reference for HR department workflows, payroll structure, and attendance policies.</span>
+            </div>
+            <div class="ref-item">
+              <span class="ref-num">[3]</span>
+              <span>MDN Web Docs — Mozilla Corporation. (2024). <em>HTML5, CSS3 &amp; JavaScript documentation</em>. https://developer.mozilla.org — Primary technical reference for all web development aspects of this project.</span>
+            </div>
+            <div class="ref-item">
+              <span class="ref-num">[4]</span>
+              <span>Government of India — Ministry of Labour &amp; Employment. (2024). <em>Employees' Provident Fund (EPF) Contribution Rates</em>. https://www.epfindia.gov.in — Reference for PF deduction rates (12%) used in payroll module.</span>
+            </div>
+            <div class="ref-item">
+              <span class="ref-num">[5]</span>
+              <span>W3Schools. (2024). <em>Web Development Tutorials — HTML, CSS, JavaScript</em>. https://www.w3schools.com — Supplementary reference for coding standards and best practices.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- end .main-wrapper -->
+
+  <!-- ══ ADD EMPLOYEE MODAL ════════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Add New Employee</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="fName" placeholder="e.g. Ravi Sharma" />
+          </div>
+          <div class="form-group">
+            <label>Department *</label>
+            <select id="fDept">
+              <option>IT</option>
+              <option>HR</option>
+              <option>Finance</option>
+              <option>Marketing</option>
+              <option>Operations</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Designation</label>
+            <input type="text" id="fDesig" placeholder="e.g. Software Engineer" />
+          </div>
+          <div class="form-group">
+            <label>Base Salary (₹) *</label>
+            <input type="number" id="fSalary" placeholder="e.g. 45000" />
+          </div>
+          <div class="form-group">
+            <label>Contact Number</label>
+            <input type="text" id="fContact" placeholder="e.g. 9876543210" />
+          </div>
+          <div class="form-group">
+            <label>Days Present (this month)</label>
+            <input type="number" id="fPresent" placeholder="e.g. 22" min="0" max="31" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn-primary" onclick="addEmployee()">Add Employee</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
