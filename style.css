@@ -1228,6 +1228,7 @@ body {
   font-size: 17px;
   color: #fff;
   margin: 0 auto 11px;
+  object-fit: cover;
 }
 
 .team-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px; color: var(--card-text); margin-bottom: 2px; }
