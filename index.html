@@ -71,8 +71,8 @@
     </nav>
 
     <div class="sidebar-footer">
-      <p>v2.0 — Pre-Final Submission</p>
-      <p>© 2026 HRMIS Project</p>
+      <p>BCA 6th Sem Term Project</p>
+      <p>Developed by Aditya & Team</p>
     </div>
   </aside>
 
@@ -81,9 +81,14 @@
 
     <!-- TOP BAR -->
     <header class="topbar">
-      <div class="topbar-left">
-        <h1 class="page-title" id="pageTitle">Dashboard</h1>
-        <p class="page-sub" id="pageSub">Overview of your HR data</p>
+      <div class="topbar-left" style="display:flex; align-items:center; gap:16px;">
+        <button class="menu-toggle" id="menuToggle" style="display:none; background:transparent; border:none; color:var(--text-hi); cursor:pointer;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div>
+          <h1 class="page-title" id="pageTitle">Dashboard</h1>
+          <p class="page-sub" id="pageSub">Overview of your HR data</p>
+        </div>
       </div>
       <div class="topbar-right">
         <div class="topbar-badge">
@@ -391,27 +396,25 @@
           <h2>Existing vs. Proposed System</h2>
           <div class="compare-grid">
             <div class="compare-card existing">
-              <h4>Existing (Manual) System</h4>
+              <h4>Existing Business Process</h4>
               <ul>
-                <li>Attendance recorded in physical registers</li>
-                <li>Payroll calculated manually by HR staff</li>
-                <li>No real-time data — reports prepared weekly</li>
-                <li>High risk of human error in salary computation</li>
-                <li>Employee records stored in physical files</li>
-                <li>No analytics or trend visualization available</li>
-                <li>Time-consuming and resource-intensive process</li>
+                <li>Attendance maintained in manual registers.</li>
+                <li>Salary computation relies on memory and rough calculations.</li>
+                <li>Generating department summaries takes hours of paperwork.</li>
+                <li>Frequent errors in PF/Tax deductions lead to disputes.</li>
+                <li>No easy way to search employee records instantly.</li>
+                <li>Hard to scale when new employees join the firm.</li>
               </ul>
             </div>
             <div class="compare-card proposed">
-              <h4>Proposed (HRMIS) System</h4>
+              <h4>New HRMIS Implementation</h4>
               <ul>
-                <li>Digital attendance input with instant percentage calculation</li>
-                <li>Automated payroll with PF and tax deductions</li>
-                <li>Real-time dashboard with live KPI stats</li>
-                <li>100% accurate, formula-driven salary processing</li>
-                <li>Centralized employee directory with search function</li>
-                <li>Visual bar charts and department reports</li>
-                <li>Web-based — accessible from any browser, anytime</li>
+                <li>Instant, secure digital attendance logging.</li>
+                <li>Automated formula-driven payroll system eliminating calculation errors.</li>
+                <li>Real-time dashboard reporting for management.</li>
+                <li>Complete transparency in tax and PF deductions.</li>
+                <li>Instant search functionality across the entire employee database.</li>
+                <li>Scalable web platform built using pure JavaScript arrays for performance.</li>
               </ul>
             </div>
           </div>
@@ -620,22 +623,21 @@
           </div>
         </div>
 
-        <!-- 10. EXPECTED OUTCOME -->
         <div class="report-section">
-          <p class="section-number">Section 10</p>
+          <p class="section-number">Section 09</p>
           <h2>Expected Outcome</h2>
           <div class="outcome-grid">
             <div class="outcome-pill">
               <div class="outcome-icon">✓</div>
-              Fully automated payroll with zero manual calculation errors
+              Zero manual calculation errors during month-end payroll
             </div>
             <div class="outcome-pill">
               <div class="outcome-icon">✓</div>
-              Instant, real-time attendance tracking for all employees
+              Quick insight into daily attendance behaviors
             </div>
             <div class="outcome-pill">
               <div class="outcome-icon">✓</div>
-              Centralized employee records accessible in one click
+              Easily readable interface reducing software training time
             </div>
             <div class="outcome-pill">
               <div class="outcome-icon">✓</div>
@@ -667,10 +669,6 @@
             </div>
             <div class="future-pill">
               <div class="future-icon">→</div>
-              Role-based login — separate portals for Admin, HR, and Employee
-            </div>
-            <div class="future-pill">
-              <div class="future-icon">→</div>
               Automated payslip generation and email delivery to employees
             </div>
             <div class="future-pill">
@@ -690,24 +688,25 @@
           <h2>References</h2>
           <div class="ref-list">
             <div class="ref-item">
-              <span class="ref-num">[1]</span>
-              <span>Laudon, K.C. &amp; Laudon, J.P. (2022). <strong>Management Information Systems: Managing the Digital Firm</strong> (16th ed.). Pearson Education. — Primary reference for MIS concepts and system design methodology.</span>
+              <span class="ref-num">01</span>
+              <div>
+                <strong>MDN Web Docs (Mozilla Foundation)</strong><br>
+                Core reference for modern JavaScript arrays and DOM manipulation techniques used in our logic.
+              </div>
             </div>
             <div class="ref-item">
-              <span class="ref-num">[2]</span>
-              <span>Dessler, G. (2020). <strong>Human Resource Management</strong> (16th ed.). Pearson. — Reference for HR department workflows, payroll structure, and attendance policies.</span>
+              <span class="ref-num">02</span>
+              <div>
+                <strong>CSS-Tricks</strong><br>
+                Guidance on implementing responsive CSS Grid designs and flexbox container patterns.
+              </div>
             </div>
             <div class="ref-item">
-              <span class="ref-num">[3]</span>
-              <span>MDN Web Docs — Mozilla Corporation. (2024). <em>HTML5, CSS3 &amp; JavaScript documentation</em>. https://developer.mozilla.org — Primary technical reference for all web development aspects of this project.</span>
-            </div>
-            <div class="ref-item">
-              <span class="ref-num">[4]</span>
-              <span>Government of India — Ministry of Labour &amp; Employment. (2024). <em>Employees' Provident Fund (EPF) Contribution Rates</em>. https://www.epfindia.gov.in — Reference for PF deduction rates (12%) used in payroll module.</span>
-            </div>
-            <div class="ref-item">
-              <span class="ref-num">[5]</span>
-              <span>W3Schools. (2024). <em>Web Development Tutorials — HTML, CSS, JavaScript</em>. https://www.w3schools.com — Supplementary reference for coding standards and best practices.</span>
+              <span class="ref-num">03</span>
+              <div>
+                <strong>Management Information Systems by Kenneth C. Laudon (Pearson)</strong><br>
+                Academic framework for structuring the HRMIS capabilities and defining proper KPIs.
+              </div>
             </div>
           </div>
         </div>
