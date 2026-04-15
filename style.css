@@ -1217,7 +1217,7 @@ body {
 .team-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
 
 .team-avatar {
-  width: 50px; height: 50px;
+  width: 75px; height: 75px;
   border-radius: 50%;
   background: var(--accent);
   display: flex;
@@ -1227,8 +1227,9 @@ body {
   font-weight: 800;
   font-size: 17px;
   color: #fff;
-  margin: 0 auto 11px;
+  margin: 0 auto 12px;
   object-fit: cover;
+  border: 2px solid var(--accent-border);
 }
 
 .team-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px; color: var(--card-text); margin-bottom: 2px; }
