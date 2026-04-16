@@ -36,12 +36,12 @@
   --border-accent:rgba(226,129,177,0.3);
 
   /* Semantic (muted, functional only) */
-  --s-green:      #22c55e;
-  --s-green-bg:   rgba(34,197,94,0.08);
-  --s-orange:     #f59e0b;
-  --s-orange-bg:  rgba(245,158,11,0.08);
+  --s-green:      #22d3a5;
+  --s-green-bg:   rgba(34, 211, 165, 0.18);
   --s-red:        #ef4444;
-  --s-red-bg:     rgba(239,68,68,0.08);
+  --s-red-bg:     rgba(239, 68, 68, 0.15);
+  --s-orange:     #f59e0b;
+  --s-orange-bg:  rgba(245, 158, 11, 0.18);
 
   /* Layout */
   --sidebar-w:    248px;
@@ -543,19 +543,22 @@ body {
 
 /* ── BADGES ──────────────────────────────────────────────── */
 .badge {
-  display: inline-block;
-  padding: 3px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
+  min-width: 65px;
 }
 
-.badge-green  { background: var(--s-green-bg);  color: var(--s-green); }
-.badge-red    { background: var(--s-red-bg);    color: var(--s-red);   }
-.badge-orange { background: var(--s-orange-bg); color: var(--s-orange);}
-.badge-cyan   { background: var(--accent-soft); color: var(--accent);  }
-.badge-purple { background: var(--accent-soft); color: var(--accent);  }/* map old purple → accent */
+.badge-green  { background: var(--s-green-bg);  color: var(--s-green); border: 1px solid var(--s-green); }
+.badge-red    { background: var(--s-red-bg);    color: var(--s-red);   border: 1px solid var(--s-red); }
+.badge-orange { background: var(--s-orange-bg); color: var(--s-orange);border: 1px solid var(--s-orange); }
+.badge-cyan   { background: var(--accent-soft); color: var(--accent);  border: 1px solid var(--accent); }
+.badge-purple { background: var(--accent-soft); color: var(--accent);  border: 1px solid var(--accent); }
 
 .badge-pill {
   background: #f3f4f6;
